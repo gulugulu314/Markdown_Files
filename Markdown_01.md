@@ -1,32 +1,39 @@
-
-Markdown的基本语法
 ---
 
-[TOC]
+---
 
-###  1. 标题
+Markdown的基本语法
+
+
+# 标题
+标题常用的用#等表示等级
+
+
 ```
 # 2. 一级标题
 ## 2.1. 二级标题
 ### 2.1.1. 三级标题
 #### 2.1.1.1. 四级标题
 ```
-###2. 粗体/斜体/高亮
+# 粗体/斜体/高亮
+## 斜体
 - 使用单个分号*或者下滑线_表示斜体，或者使用快捷键ctrl+I；
   (使用快捷键的前提，是必须安装Markdown All in One插件)
 
     - *倾斜字体1*
     - _倾斜字体2_
 
-
+## 粗体
 - 使用两个分号**或者两个下划线__表示粗体，或者使用快捷键Ctrl+B；
     - **加粗字体**
     - __加粗字体__
+  
+## 高亮
 - 使用两个等于号==对字体进行高亮显示
     - ==高亮字体==
 
-###3.列表
-- 无序列表
+# 列表
+## 无序列表
     无序列表用分号"*"和中划线"-"，表示一个无序列表
     嵌套列表，继续使用；
     - 列表1
@@ -38,7 +45,7 @@ Markdown的基本语法
       - 子列表3.2
       - 子列表3.3
 
-- 有序列表
+## 有序列表
     有序列表用数字和.，表示的一个有序列表
     1. 列表1
     2. 列表2
@@ -46,18 +53,22 @@ Markdown的基本语法
         2.2 子列表2.2
     3. 列表3
 
-###4.链接和图片
-    链接：[链接描述](链接地址) [apple](http://www.apple.com)
-    图片：![照片](照片地址)
+# 链接和图片
+## 链接
+    [链接描述](链接地址) [apple](http://www.apple.com)
+
+## 图片
+    ![照片](照片地址)
+
 ```
  [苹果网站地址](http://www.apple.com)
- ![单个照片](C:/Users/MartinWu/Desktop/Markdown_Doc/Image/testImage.jpg)
+ ![单个照片](https://github.com/gulugulu314/Markdown_Files/tree/master/Image/testImage.jpg)
 ```
 
  [苹果网站地址](http://www.apple.com)
- ![单个照片](C:/Users/MartinWu/Desktop/Markdown_Doc/Image/testImage.jpg)
+ ![单个照片](http://meetoo.cn:1986/Patch/Image/Image.jpg)
 
-###5.引用
+# 引用
 这是一个名人名句的引用：
 >《望岳》
 >作者:[杜甫](https://baike.baidu.com/item/%E6%9D%9C%E7%94%AB/63508?fr=aladdin)
@@ -67,12 +78,12 @@ Markdown的基本语法
 >会当凌绝顶，一览众山小。
 >> 这个是第二级嵌套应用；
 
-###6.分割符
+# 分割符
 使用多个字符，例如---，***，___表示字符；
 
 ---
 
-###7.代码行或代码块
+# 代码行或代码块
 使用两个\`可以用来显示单行代码或者，进行特殊标记，例如：
 - 对某个`字符`特殊标记
 - 代码行： `int i = 10;`
@@ -95,7 +106,7 @@ public static Move(target:Sprite3D,position:Vector3,duration:number,ease?:Functi
 }
 ```
 
-###8.任务列表
+# 任务列表
 任务列表可以用- [ ] 来表示，如果已完成用- [x]表示
 
 ```
@@ -106,7 +117,7 @@ public static Move(target:Sprite3D,position:Vector3,duration:number,ease?:Functi
 - [ ] 未完成项目
 - [x] 已完成项目
 
-###9.表格
+# 表格
 写入表格需要表头：  
 可以控制表格内的格式，用
 - :------ 表示靠左对齐；
@@ -130,7 +141,7 @@ id|name|sex|age
 2|李四|男|22
 3|王五|女|19
 
-###10.TOC
+# TOC
 TOC可以快速生成目录
 
 
