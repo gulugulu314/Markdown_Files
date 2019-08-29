@@ -58,3 +58,24 @@ EventSystem Standalone Input Mdoule 和Canvas上的Graphic Raycaster图形射线
 要实现接口，必须有selectable组件
 
 # UI组件的扩展
+
+## 1、序列化对象和序列化属性（SerializedProperty,SerializedObject）
+
+
+
+## 2、Serializable  SerializeField 
+
+
+## 3、OnPopulateMesh
+
+UI元素生成顶点数据时，会调用OnPopulateMesh函数，可在在该函数中修改顶点的位置或获取顶点数据
+
+
+## 4、AppearanceControlsGUI，RaycastControlsGUI， serializedObject.ApplyModifiedProperties
+
+## 5、VertexHelper类
+
+可以创建顶点，构建三角形，填充mesh,并利用meshrender渲染到屏幕上；VertexHelper类是Unity UGUI和Mesh之间的桥梁；
+
+Unity内部构建三角形是顺时针构建三角形的；只渲染正面
+
