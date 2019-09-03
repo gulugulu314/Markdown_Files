@@ -1,0 +1,396 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:模型处理Editor说明文档</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<p>米图灵动模型处理编辑器说明文档</p>
+<hr>
+<ul>
+<li>Unity2019版本以上，所有的预设体操作都应该Unpack Prefab以后进行操作</li>
+</ul>
+<h1 id="-">模型编辑器-建筑</h1>
+<p>建筑模型处理包含两个部分：<strong>外观建筑模型、内建筑模型</strong>；</p>
+<p><strong>其中：</strong></p>
+<pre><code>外观建筑模型是由3DMax制作，导出的.Fbx文件，文件中内嵌纹理贴图及材质；
+
+内建筑模型是由Revit软件制作，导出.Fbx文件，可以是裸模，不需要材质信息；
+</code></pre><ul>
+<li><strong>外建筑提供的资源：</strong></li>
+<li><p>文件资源命名：<strong>院区名_日期.FBX</strong>,例如：<strong>SZKNHP-20190601.FBX文件</strong></p>
+<p>  <img src="E:/7_GitHub/Markdown_Files/Image/OutdoorMaxModel.png" alt="外建筑模型提交资源格式">              </p>
+</li>
+<li><p><strong>外建筑层级结构：</strong></p>
+<p>外建筑分为三个部分：<strong>buildings,ground,others</strong></p>
+<p>其中：buildings是划分好楼层的建筑，ground是地面，后期会加入Tree,others主要是一些装饰物体</p>
+<p>  <img src="E:/7_GitHub/Markdown_Files/Image/outdoorLevel.png" alt="外建筑层级">              </p>
+<p>  <strong>buildings的层级：</strong></p>
+<ul>
+<li>buildings节点下为各建筑，<strong>每个建筑的中心点应该位于建筑的中心</strong>，在3dMax建模时应该调整正确；</li>
+<li>建筑节点（1）下为各楼层（2），每一层对应一个box（4），每一层下有自己的outdoor节点，outdoor节点下的mesh为该层的实体外建筑（3）；</li>
+<li>楼层节点（2）与box节点（4）为<strong>同一层级</strong>；</li>
+<li>楼层节点的中心点应该是该楼层的中心点；</li>
+<li><strong>楼层Box的编码</strong>：楼层编码_Box,例如：<strong>BDHCMU-A02-F002_Box</strong>;</li>
+<li><p>每个建筑下都应该有一个建筑Box，建筑Box的编码为:院区-建筑_Box，例如：</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/buildingLevel.png" alt="外建筑层级">    </p>
+</li>
+</ul>
+</li>
+<li><p><strong>内建筑提供的资源：</strong></p>
+<ul>
+<li><p><strong>Revit文件</strong>，Revit文件的提交格式：<strong>院区-建筑-AR.rvt</strong>,例如：<strong>TSCENH-K03-AR.rvt</strong></p>
+<p>  <img src="E:/7_GitHub/Markdown_Files/Image/indoorModel.png" alt="外建筑层级">   </p>
+</li>
+<li><p><strong>Excel表</strong>，该Excel表统计每个房间的部门、用途等信息属性;</p>
+<p>  <em>注：若使用翻模插件翻模，可直接生成Excel文件</em></p>
+<p>  <img src="E:/7_GitHub/Markdown_Files/Image/Excel.png" alt="Excel">   </p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>内建筑检查</strong></p>
+<ul>
+<li>信息检查<ul>
+<li>限制条件中的各属性信息标注是否完整</li>
+</ul>
+</li>
+<li>楼板检查<ul>
+<li>检查是否出现不应该适用楼板绘制的模型，确保所有的楼板都能够编码</li>
+</ul>
+</li>
+<li>楼层检查<ul>
+<li>楼层编码是否符合建模规范</li>
+</ul>
+</li>
+<li>内外墙和内外柱检查<ul>
+<li>内外柱和内外墙应该区分开，在模型的族名称中标注出，</li>
+<li>翻模软件翻模的建筑，应该人工标注</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="-">外建筑划分</h2>
+<p>主要分四个部分：</p>
+<ul>
+<li><strong>调整外建筑材质</strong></li>
+<li><strong>3dMax建筑划分</strong></li>
+<li><strong>设置BoxLayer</strong></li>
+<li><strong>设置BoxMaterial</strong></li>
+</ul>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/外建筑划分.png" alt="外建筑划分">   </p>
+<ul>
+<li><p><strong>调整外建筑材质</strong></p>
+<ul>
+<li><p>外建筑使用标准的Unity StandardShader，材质中使用贴图的灰度值，Unity默认降低一倍，使用Editor将灰度值调整到最亮；</p>
+</li>
+<li><p><strong>模型根节点应该选择Fbx根节点</strong>，调整整个建筑的材质球，在调整之前应该确保FBX文件中的材质已经解析出来；</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/调整外建筑材质.png" alt="调整外建筑材质">   </p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/解析外建筑材质.png" alt="解析外建筑材质">   </p>
+</li>
+</ul>
+</li>
+<li><p><strong>3dMax划分</strong></p>
+<ul>
+<li><p><strong>模型根节点选择buildings</strong></p>
+</li>
+<li><p><strong>3dMax划分后的层级结构</strong></p>
+<p>  外建筑划分后的层级结构为：<strong>others,boxes，levels</strong></p>
+<p>  boxes：除了包含每层的box后，还包含一个BuildingBox,BuildingBox下又复制了一份楼层的box；</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/外建筑划分后.png" alt="外建筑划分后">   </p>
+</li>
+</ul>
+</li>
+<li><p><strong>设置BoxLayer</strong></p>
+<ul>
+<li><p><strong>模型根节点选择buildings</strong></p>
+</li>
+<li><p>设置Box的layer为：buildingBox,并自动添加MeshCollider</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/BoxLayer.png" alt="BoxLayer">   </p>
+</li>
+</ul>
+</li>
+<li><p><strong>设置BoxMaterial</strong></p>
+<ul>
+<li><p><strong>模型根节点选择buildings</strong></p>
+</li>
+<li><p>Box的材质球为：不需要选择</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/BoxMaterial.png" alt="BoxMaterial">   </p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="-">内建筑层级</h2>
+<h2 id="-">内建筑划分</h2>
+<h2 id="-">内建筑划分</h2>
+<h2 id="-">内建筑命名</h2>
+<h2 id="-">内建筑替换材质</h2>
+<h2 id="-layer-tag">内建筑设置Layer/Tag</h2>
+<h2 id="-">内建筑导入外建筑打包</h2>
+<h2 id="-">房间与楼板的映射关系</h2>
+<pre><code>
+</code></pre><h1 id="-">模型编辑器-管道</h1>
+<h2 id="-">管道替换</h2>
+<h2 id="-">管道划分</h2>
+<h2 id="-">管道材质</h2>
+<h2 id="-layer">管道Layer</h2>
+<h2 id="-">标记竖管</h2>
+<h2 id="-">管道编码</h2>
+<h2 id="-">更新数据库</h2>
+<h2 id="-">管道终端与房间的映射关系</h2>
+<h1 id="-">模型编辑器-设备</h1>
+<h2 id="-">设备与房间的映射关系</h2>
+<h2 id="-layer-collider">设备Layer/Collider</h2>
+<h2 id="-">设备细分</h2>
+<h2 id="-">设备特殊情况</h2>
+<ul>
+<li><p>使用单个分号*或者下滑线_表示斜体，或者使用快捷键ctrl+I；
+(使用快捷键的前提，是必须安装Markdown All in One插件)</p>
+<ul>
+<li><em>倾斜字体1</em></li>
+<li><em>倾斜字体2</em></li>
+</ul>
+</li>
+</ul>
+<h2 id="-">粗体</h2>
+<ul>
+<li>使用两个分号**或者两个下划线__表示粗体，或者使用快捷键Ctrl+B；<ul>
+<li><strong>加粗字体</strong></li>
+<li><strong>加粗字体</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="-">高亮</h2>
+<ul>
+<li>使用两个等于号==对字体进行高亮显示<ul>
+<li>==高亮字体==</li>
+</ul>
+</li>
+</ul>
+<h1 id="-">列表</h1>
+<h2 id="-">无序列表</h2>
+<pre><code>无序列表用分号&quot;*&quot;和中划线&quot;-&quot;，表示一个无序列表
+嵌套列表，继续使用；
+- 列表1
+- 列表2
+  - 子列表2.1
+  - 子列表2.2
+- 列表3
+  - 子列表3.1
+  - 子列表3.2
+  - 子列表3.3
+</code></pre><h2 id="-">有序列表</h2>
+<pre><code>有序列表用数字和.，表示的一个有序列表
+1. 列表1
+2. 列表2
+    2.1 子列表2.1
+    2.2 子列表2.2
+3. 列表3
+</code></pre><h1 id="-">链接和图片</h1>
+<h2 id="-">链接</h2>
+<pre><code>[链接描述](链接地址) [apple](http://www.apple.com)
+</code></pre><h2 id="-">图片</h2>
+<pre><code>![照片](照片地址)
+</code></pre><pre><code> [苹果网站地址](http://www.apple.com)
+ ![单个照片](https://github.com/gulugulu314/Markdown_Files/tree/master/Image/testImage.jpg)
+</code></pre><p> <a href="http://www.apple.com">苹果网站地址</a>
+ <img src="http://meetoo.cn:1986/Patch/Image/Image.jpg" alt="单个照片"></p>
+<h1 id="-">引用</h1>
+<p>这是一个名人名句的引用：</p>
+<blockquote>
+<p>《望岳》
+作者:<a href="https://baike.baidu.com/item/%E6%9D%9C%E7%94%AB/63508?fr=aladdin">杜甫</a>
+岱宗夫如何？齐鲁青未了。
+造化钟神秀，阴阳割昏晓。
+荡胸生曾云，决眦入归鸟。
+会当凌绝顶，一览众山小。</p>
+<blockquote>
+<p>这个是第二级嵌套应用；</p>
+</blockquote>
+</blockquote>
+<h1 id="-">分割符</h1>
+<p>使用多个字符，例如---，***，___表示字符；</p>
+<hr>
+<h1 id="-">代码行或代码块</h1>
+<p>使用两个`可以用来显示单行代码或者，进行特殊标记，例如：</p>
+<ul>
+<li>对某个<code>字符</code>特殊标记</li>
+<li>代码行： <code>int i = 10;</code></li>
+<li>代码块：使用<code>`</code>表示代码块，为了凸显语言高亮，可以在其后边添加特定语言，例如java,c#,typescript等，可以加上不同的.class{.class1}，{.class2}等。例如：需要显示行号，需要在之后加上 {.line-numbers}</li>
+</ul>
+<p><code>`</code>TypeScript {.line-numbers}
+public static Move(target:Sprite3D,position:Vector3,duration:number,ease?:Function,complete?:Handler,delay?:number,coverBefore?:boolean,autoRecover?:boolean):Laya.Tween{
+    if(target == null) return null;
+    let pos = target.transform.position;
+    let tween = Laya.Tween.to(pos,{
+            x:position.x,
+            y:position.y,
+            z:position.z,
+            update:new Handler(target,function(){
+                this.transform.position = pos;
+            })
+        },duration,ease,complete,delay,coverBefore,autoRecover);
+    return tween;
+}</p>
+<pre><code>
+# 任务列表
+任务列表可以用- [ ] 来表示，如果已完成用- [x]表示
+
+</code></pre><ul>
+<li>[ ] 未完成项目</li>
+<li><p>[x] 已完成项目
+<code>`</code></p>
+</li>
+<li><p>[ ] 未完成项目</p>
+</li>
+<li>[x] 已完成项目</li>
+</ul>
+<h1 id="-">表格</h1>
+<p>写入表格需要表头：<br>可以控制表格内的格式，用</p>
+<ul>
+<li>:------ 表示靠左对齐；</li>
+<li>------: 表示靠右对齐；</li>
+<li>:-----：表示居中对齐；</li>
+</ul>
+<pre><code>| 一个普通标题 | 一个普通标题 | 一个普通标题 |
+| :------ | ------ | ------: |
+| 短文本 | 中等文本 | 稍微长一点的文本 |
+| 稍微长一点的文本 | 短文本 | 中等文本 |
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">一个普通标题</th>
+<th>一个普通标题</th>
+<th style="text-align:right">一个普通标题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">短文本</td>
+<td>中等文本</td>
+<td style="text-align:right">稍微长一点的文本</td>
+</tr>
+<tr>
+<td style="text-align:left">稍微长一点的文本</td>
+<td>短文本</td>
+<td style="text-align:right">中等文本</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th style="text-align:left">name</th>
+<th>sex</th>
+<th style="text-align:right">age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:left">张三</td>
+<td>男</td>
+<td style="text-align:right">18</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:left">李四</td>
+<td>男</td>
+<td style="text-align:right">22</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:left">王五</td>
+<td>女</td>
+<td style="text-align:right">19</td>
+</tr>
+</tbody>
+</table>
+<h1 id="toc">TOC</h1>
+<p>TOC可以快速生成目录</p>
+<p>4&gt;5</p>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
