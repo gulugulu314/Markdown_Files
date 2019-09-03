@@ -68,8 +68,20 @@
             	<p>米图灵动模型处理编辑器说明文档</p>
 <hr>
 <ul>
-<li>Unity2019版本以上，所有的预设体操作都应该Unpack Prefab以后进行操作</li>
+<li><p><strong>说明</strong></p>
+<ul>
+<li>Unity2019版本以上，所有的预设体操作都应该Unpack Prefab以后进行操作；</li>
 </ul>
+</li>
+</ul>
+<ul>
+<li><strong><em>建筑模型处理流程图一</em></strong></li>
+</ul>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/处理流程图.png" alt="处理流程图">  </p>
+<ul>
+<li><strong><em>建筑模型处理流程图二</em></strong></li>
+</ul>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/处理流程图2.png" alt="处理流程图2">  </p>
 <h1 id="-">模型编辑器-建筑</h1>
 <p>建筑模型处理包含两个部分：<strong>外观建筑模型、内建筑模型</strong>；</p>
 <p><strong>其中：</strong></p>
@@ -77,12 +89,12 @@
 
 内建筑模型是由Revit软件制作，导出.Fbx文件，可以是裸模，不需要材质信息；
 </code></pre><ul>
-<li><strong>外建筑提供的资源：</strong></li>
-<li><p>文件资源命名：<strong>院区名_日期.FBX</strong>,例如：<strong>SZKNHP-20190601.FBX文件</strong></p>
+<li><p><strong>外建筑提供的资源：</strong></p>
+<p>文件资源命名：<strong>==院区名_日期.FBX==</strong>,例如：<strong>==SZKNHP-20190601.FBX文件==</strong></p>
 <p>  <img src="E:/7_GitHub/Markdown_Files/Image/OutdoorMaxModel.png" alt="外建筑模型提交资源格式">              </p>
 </li>
 <li><p><strong>外建筑层级结构：</strong></p>
-<p>外建筑分为三个部分：<strong>buildings,ground,others</strong></p>
+<p>外建筑分为三个部分：<strong>==buildings,ground,others==</strong></p>
 <p>其中：buildings是划分好楼层的建筑，ground是地面，后期会加入Tree,others主要是一些装饰物体</p>
 <p>  <img src="E:/7_GitHub/Markdown_Files/Image/outdoorLevel.png" alt="外建筑层级">              </p>
 <p>  <strong>buildings的层级：</strong></p>
@@ -91,15 +103,15 @@
 <li>建筑节点（1）下为各楼层（2），每一层对应一个box（4），每一层下有自己的outdoor节点，outdoor节点下的mesh为该层的实体外建筑（3）；</li>
 <li>楼层节点（2）与box节点（4）为<strong>同一层级</strong>；</li>
 <li>楼层节点的中心点应该是该楼层的中心点；</li>
-<li><strong>楼层Box的编码</strong>：楼层编码_Box,例如：<strong>BDHCMU-A02-F002_Box</strong>;</li>
-<li><p>每个建筑下都应该有一个建筑Box，建筑Box的编码为:院区-建筑_Box，例如：</p>
+<li><strong>楼层Box的编码</strong>：楼层编码_Box,例如：<strong>==BDHCMU-A02-F002_Box==</strong>;</li>
+<li><p>每个建筑下都应该有一个建筑Box(5)，建筑Box的编码为:院区-建筑_Box，例如：</p>
 <p><img src="E:/7_GitHub/Markdown_Files/Image/buildingLevel.png" alt="外建筑层级">    </p>
 </li>
 </ul>
 </li>
 <li><p><strong>内建筑提供的资源：</strong></p>
 <ul>
-<li><p><strong>Revit文件</strong>，Revit文件的提交格式：<strong>院区-建筑-AR.rvt</strong>,例如：<strong>TSCENH-K03-AR.rvt</strong></p>
+<li><p><strong>Revit文件</strong>，Revit文件的提交格式：<strong>==院区-建筑-AR.rvt==</strong>,例如：<strong>==TSCENH-K03-AR.rvt==</strong></p>
 <p>  <img src="E:/7_GitHub/Markdown_Files/Image/indoorModel.png" alt="外建筑层级">   </p>
 </li>
 <li><p><strong>Excel表</strong>，该Excel表统计每个房间的部门、用途等信息属性;</p>
@@ -157,7 +169,7 @@
 <li><p><strong>模型根节点选择buildings</strong></p>
 </li>
 <li><p><strong>3dMax划分后的层级结构</strong></p>
-<p>  外建筑划分后的层级结构为：<strong>others,boxes，levels</strong></p>
+<p>  外建筑划分后的层级结构为：<strong>==others,boxes，levels==</strong></p>
 <p>  boxes：除了包含每层的box后，还包含一个BuildingBox,BuildingBox下又复制了一份楼层的box；</p>
 <p><img src="E:/7_GitHub/Markdown_Files/Image/外建筑划分后.png" alt="外建筑划分后">   </p>
 </li>
@@ -183,10 +195,119 @@
 </li>
 </ul>
 <h2 id="-">内建筑层级</h2>
+<pre><code>内建筑导入到Unity之前，需要使用Pixel软件或者Simplygon软件进行优化、优化后的模型需要导入到3dMax内
+调整轴心位置，调整完位置后，导入到Unity做下一步处理
+</code></pre><ul>
+<li>流程</li>
+</ul>
+<pre><code class="lang-flow">st=&gt;start: revit文件
+e=&gt;end
+op1=&gt;operation: 模型检查
+op2=&gt;operation: Simplygon/PiXYZ优化
+op3=&gt;operation: 3dMax轴心点处理
+op4=&gt;operation: 导入Unity调整层级
+st-&gt;op1-&gt;op2-&gt;op3-&gt;op4
+</code></pre>
+<ul>
+<li><strong>Pixel软件优化</strong></li>
+</ul>
+<p>使用Pixyz软件进行优化，一般设置Preset为Strong即可</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/Pixyz.png" alt="Pixyz">   </p>
+<ul>
+<li><strong>Simplygon优化</strong></li>
+</ul>
+<ul>
+<li><strong>3dMax调整轴心</strong></li>
+</ul>
+<p>3dMax的单位设置，应该设置为厘米（Centimeter）,设置好单位后，调整轴心导出即可</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/3dMax操作2.png" alt="3dMax操作2">   <img src="E:/7_GitHub/Markdown_Files/Image/3dMax操作.png" alt="3dMax操作">   </p>
+<ul>
+<li><p><strong>内建筑层级调整</strong></p>
+<ul>
+<li><p>PiXYZ软件导出的模型结构如下图：</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/revit文件.png" alt="revit文件">   </p>
+</li>
+<li><p>调整层级</p>
+</li>
+<li><p><strong>模型根节点选择Revit模型的根节点</strong></p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑层级.png" alt="内建筑层级">   </p>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="-">内建筑划分</h2>
-<h2 id="-">内建筑划分</h2>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+<li><p>数据库文件</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑划分.png" alt="内建筑划分">   </p>
+</li>
+</ul>
+<p><strong>操作：</strong></p>
+<ul>
+<li><strong>建筑类型划分（整体）</strong> </li>
+</ul>
+<ul>
+<li><strong>建筑楼层划分</strong></li>
+</ul>
+<ul>
+<li><strong>建筑类型划分（楼层）</strong> </li>
+</ul>
 <h2 id="-">内建筑命名</h2>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+<li>数据库文件</li>
+</ul>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑命名.png" alt="内建筑命名">  </p>
+<p><strong>操作：</strong></p>
+<ul>
+<li><p><strong>楼板编码检测：</strong> </p>
+<ul>
+<li><p><strong>测试楼板编码中是否有重复编码</strong></p>
+</li>
+<li><p>模型根节点选择：处理的模型根节点</p>
+</li>
+<li>处理完后一定检查是否有重复编码</li>
+</ul>
+</li>
+<li><p><strong>楼板命名：</strong> </p>
+<ul>
+<li>给楼板进行编码，根据数据库db文件中<font color = "#ff0000">楼板</font>表，楼板表中的<font color = "#ff0000">空间编码</font>字段必须不为空</li>
+<li>仅处理Floor节点下的对象，如果数据库中的楼板表中空间编码字段为空，所有的编码都将变成以<font color = "#ff0000">NE</font>开头的编码</li>
+<li>空间编码格式为：<font color = "#ff0000">TSCENH-K03-F002A-RM001</font></li>
+<li>空间编码中楼层后边一定带<font color = "#ff0000">A</font></li>
+<li><p><strong>处理后的编码</strong></p>
+<p>  <img src="E:/7_GitHub/Markdown_Files/Image/楼板编码.png" alt="楼板编码">  </p>
+</li>
+</ul>
+</li>
+<li><p><strong>门命名：</strong></p>
+<ul>
+<li>根据需求做处理，一般可以不做处理</li>
+<li>如果需要处理，仅对Door节点下的模型处理</li>
+<li>Door命名编码为：楼层-ID, <font color = "#ff0000">TSCENH-K03-F002-2931120</font></li>
+<li><p><strong>处理后的编码</strong></p>
+<p>   <img src="E:/7_GitHub/Markdown_Files/Image/门编码.png" alt="门编码">  </p>
+</li>
+</ul>
+</li>
+<li><p><strong>病床命名：</strong></p>
+</li>
+<li><p><strong>墙和柱命名</strong></p>
+<ul>
+<li>根据需求做处理，一般可以不做处理</li>
+<li>如果建筑模型按模板来做，墙和结构柱的内外之分，在模板里面已经设置好了，不需要做处理</li>
+<li>如果不是按模板做，需要根据数据库中的参数来设置<ul>
+<li>所在表名：你需要处理的表名，例如墙，在数据库中为墙，结构柱在数据库中为结构柱</li>
+<li>所在表列：即区分内外的参数所在表列</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="-">内建筑替换材质</h2>
+<p> <img src="E:/7_GitHub/Markdown_Files/Image/内建筑材质.png" alt="内建筑材质">  </p>
 <h2 id="-layer-tag">内建筑设置Layer/Tag</h2>
 <h2 id="-">内建筑导入外建筑打包</h2>
 <h2 id="-">房间与楼板的映射关系</h2>

@@ -3,8 +3,18 @@
 
 ---
 
-- Unity2019版本以上，所有的预设体操作都应该Unpack Prefab以后进行操作
+- **说明**
 
+  - Unity2019版本以上，所有的预设体操作都应该Unpack Prefab以后进行操作；
+  
+
+- ***建筑模型处理流程图一***
+
+![处理流程图](E:/7_GitHub/Markdown_Files/Image/处理流程图.png)  
+
+- ***建筑模型处理流程图二***
+
+![处理流程图2](E:/7_GitHub/Markdown_Files/Image/处理流程图2.png)  
 
 # 模型编辑器-建筑
 
@@ -18,7 +28,7 @@
 
 
 - **外建筑提供的资源：**
-- 
+   
   文件资源命名：**院区名_日期.FBX**,例如：**SZKNHP-20190601.FBX文件**
   
     ![外建筑模型提交资源格式](E:/7_GitHub/Markdown_Files/Image/OutdoorMaxModel.png)              
@@ -37,7 +47,7 @@
     - 楼层节点（2）与box节点（4）为**同一层级**；
     - 楼层节点的中心点应该是该楼层的中心点；
     - **楼层Box的编码**：楼层编码_Box,例如：**BDHCMU-A02-F002_Box**;
-    - 每个建筑下都应该有一个建筑Box，建筑Box的编码为:院区-建筑_Box，例如：
+    - 每个建筑下都应该有一个建筑Box(5)，建筑Box的编码为:院区-建筑_Box，例如：
 
     ![外建筑层级](E:/7_GitHub/Markdown_Files/Image/buildingLevel.png)    
 
@@ -65,20 +75,6 @@
     - 内外墙和内外柱检查
         - 内外柱和内外墙应该区分开，在模型的族名称中标注出，
         - 翻模软件翻模的建筑，应该人工标注
-
-
-- 流程
-
-
-```flow
-st=>start: Start
-op=>operation: 
-cond=>condition: Yes or No?
-e=>end
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
 
 
 ## 外建筑划分
@@ -130,26 +126,143 @@ cond(no)->op
 
     ![BoxMaterial](E:/7_GitHub/Markdown_Files/Image/BoxMaterial.png)   
 
+
+
 ## 内建筑层级
 
-    内建筑导入到Unity之前，需要使用Pixel软件或者Simplygon软件进行优化、优化后的模型需要导入到3dMax内调整轴心位置；
+    内建筑导入到Unity之前，需要使用Pixel软件或者Simplygon软件进行优化、优化后的模型需要导入到3dMax内
+    调整轴心位置，调整完位置后，导入到Unity做下一步处理
+
+
+- 流程
+
+```flow
+st=>start: revit文件
+e=>end
+op1=>operation: 模型检查
+op2=>operation: Simplygon/PiXYZ优化
+op3=>operation: 3dMax轴心点处理
+op4=>operation: 导入Unity调整层级
+st->op1->op2->op3->op4
+```
+
+
+- **Pixel软件优化**
+
+使用Pixyz软件进行优化，一般设置Preset为Strong即可
+
+![Pixyz](E:/7_GitHub/Markdown_Files/Image/Pixyz.png)   
+
+- **Simplygon优化**
+
+
+- **3dMax调整轴心**
+
+3dMax的单位设置，应该设置为厘米（Centimeter）,设置好单位后，调整轴心导出即可
+
+![3dMax操作2](E:/7_GitHub/Markdown_Files/Image/3dMax操作2.png)   ![3dMax操作](E:/7_GitHub/Markdown_Files/Image/3dMax操作.png)   
+
+- **内建筑层级调整**
+
+    - PiXYZ软件导出的模型结构如下图：
+
+    ![revit文件](E:/7_GitHub/Markdown_Files/Image/revit文件.png)   
+
+    - 调整层级
+
+    - **模型根节点选择Revit模型的根节点**
     
-
-![revit文件](E:/7_GitHub/Markdown_Files/Image/revit文件.png)   
-
-## 内建筑划分
+    ![内建筑层级](E:/7_GitHub/Markdown_Files/Image/内建筑层级.png)   
 
 ## 内建筑划分
+
+**选择：**
+
+- 模型根节点
+- 数据库文件
+
+ ![内建筑划分](E:/7_GitHub/Markdown_Files/Image/内建筑划分.png)   
+
+**操作：**
+
+- **建筑类型划分（整体）** 
+  
+   
+  
+- **建筑楼层划分**
+
+
+
+- **建筑类型划分（楼层）** 
+
 
 ## 内建筑命名
 
+**选择：**
+
+- 模型根节点
+- 数据库文件
+
+![内建筑命名](E:/7_GitHub/Markdown_Files/Image/内建筑命名.png)  
+
+**操作：**
+
+- **楼板编码检测：** 
+  
+    - **测试楼板编码中是否有重复编码**
+
+    - 模型根节点选择：处理的模型根节点
+    - 处理完后一定检查是否有重复编码
+  
+- **楼板命名：** 
+
+    - 给楼板进行编码，根据数据库db文件中<font color = "#ff0000">楼板</font>表，楼板表中的<font color = "#ff0000">空间编码</font>字段必须不为空
+    - 仅处理Floor节点下的对象，如果数据库中的楼板表中空间编码字段为空，所有的编码都将变成以<font color = "#ff0000">NE</font>开头的编码
+    - 空间编码格式为：<font color = "#ff0000">TSCENH-K03-F002A-RM001</font>
+    - 空间编码中楼层后边一定带<font color = "#ff0000">A</font>
+    - **处理后的编码**
+  
+        ![楼板编码](E:/7_GitHub/Markdown_Files/Image/楼板编码.png)  
+
+- **门命名：**
+
+   - 根据需求做处理，一般可以不做处理
+   - 如果需要处理，仅对Door节点下的模型处理
+   - Door命名编码为：楼层-ID, <font color = "#ff0000">TSCENH-K03-F002-2931120</font>
+   - **处理后的编码**
+  
+        ![门编码](E:/7_GitHub/Markdown_Files/Image/门编码.png)  
+
+- **病床命名：**
+
+- **墙和柱命名**
+
+  - 根据需求做处理，一般可以不做处理
+  - 如果建筑模型按模板来做，墙和结构柱的内外之分，在模板里面已经设置好了，不需要做处理
+  - 如果不是按模板做，需要根据数据库中的参数来设置
+    - 所在表名：你需要处理的表名，例如墙，在数据库中为墙，结构柱在数据库中为结构柱
+    - 所在表列：即区分内外的参数所在表列
+
 ## 内建筑替换材质
+
+
+ ![内建筑材质](E:/7_GitHub/Markdown_Files/Image/内建筑材质.png)  
+
 
 ## 内建筑设置Layer/Tag
 
+
+
+
 ## 内建筑导入外建筑打包
 
+
+
+
 ## 房间与楼板的映射关系
+
+
+
 
 ```
 
