@@ -145,14 +145,8 @@
 </li>
 </ul>
 <h2 id="-">外建筑划分</h2>
-<p>主要分四个部分：</p>
-<ul>
-<li><strong>调整外建筑材质</strong></li>
-<li><strong>3dMax建筑划分</strong></li>
-<li><strong>设置BoxLayer</strong></li>
-<li><strong>设置BoxMaterial</strong></li>
-</ul>
 <p><img src="E:/7_GitHub/Markdown_Files/Image/外建筑划分.png" alt="外建筑划分">   </p>
+<p>主要分四个部分：</p>
 <ul>
 <li><p><strong>调整外建筑材质</strong></p>
 <ul>
@@ -236,23 +230,43 @@ st-&gt;op1-&gt;op2-&gt;op3-&gt;op4
 </li>
 </ul>
 <h2 id="-">内建筑划分</h2>
+<p> <img src="E:/7_GitHub/Markdown_Files/Image/内建筑划分.png" alt="内建筑划分">   </p>
+<ul>
+<li>划分后的层级为 ：</li>
+</ul>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑划分后.png" alt="内建筑划分后">   </p>
 <p><strong>选择：</strong></p>
 <ul>
 <li>模型根节点</li>
-<li><p>数据库文件</p>
-<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑划分.png" alt="内建筑划分">   </p>
-</li>
+<li>数据库文件</li>
 </ul>
 <p><strong>操作：</strong></p>
 <ul>
-<li><strong>建筑类型划分（整体）</strong> </li>
-</ul>
+<li><p><strong>建筑类型划分（整体）</strong> </p>
 <ul>
-<li><strong>建筑楼层划分</strong></li>
+<li>根据数据库中的表，将模型按不同的类型进行划分开，</li>
+<li>一般分为：<strong>墙（Wall）</strong>、<strong>楼板(Floor)</strong>、<strong>结构柱（StructureColumn）、窗(Window)</strong>、<strong>门(door)、幕墙嵌板(CurtainWallJamb)</strong>、<strong>幕墙竖梃(CurtainWallPanel)，栏杆扶手(Railing)</strong>，<strong>楼梯(stairs)</strong>、<strong>天花板(celling)、屋顶(roof)</strong> 等，确保数据库中包含所有模型的表；</li>
+<li>有些为分配的，但场景中有重复的，例如楼梯的<strong>整体平台和整体梯段可以删除</strong>；</li>
+<li>建筑划分完成后，需要单独选择一块每一层的楼板作为划分<strong>楼层标高的标识</strong>；创建一个空物体，将所有的楼板放置到空物体下</li>
+<li>获得所有楼板标识后，可以还原整体建筑划分；</li>
 </ul>
+</li>
+<li><p><strong>建筑楼层划分</strong></p>
 <ul>
-<li><strong>建筑类型划分（楼层）</strong> </li>
+<li>划分楼层，需要根据楼板标识进行划分，选择划分楼板的节点；</li>
+<li>指定当前划分建筑的编码</li>
+<li>指定当前建筑地下层数，如果中间有夹层部分，需要手动修改楼层编码</li>
+<li>如果是多建筑的话，需要根据数据库进行划分</li>
 </ul>
+</li>
+<li><p><strong>建筑类型划分（楼层）</strong> </p>
+<ul>
+<li>划分好楼层后，既可划分楼层内的类型；</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意：</strong> <font color = "#ff0000">在编码之前应该保存一份位编码的内建筑，以便后期有修改；
+未编码内建筑可以标注为UnEncode,例如TCENH-K03-AR-UnEncode</font></p>
 <h2 id="-">内建筑命名</h2>
 <p><strong>选择：</strong></p>
 <ul>
@@ -305,12 +319,75 @@ st-&gt;op1-&gt;op2-&gt;op3-&gt;op4
 </li>
 </ul>
 </li>
+<li><p><strong>修改楼板编码</strong>
+如果楼板编码中缺少编码A,可以使用此功能快速添加A</p>
+</li>
 </ul>
 <h2 id="-">内建筑替换材质</h2>
 <p> <img src="E:/7_GitHub/Markdown_Files/Image/内建筑材质.png" alt="内建筑材质">  </p>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+</ul>
+<p><strong>操作：</strong></p>
+<p>建筑材质的默认路径为：“.../Base/Shared/Materials/BuildingMaterial”,可以不用选择</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/建筑材质.png" alt="建筑材质">  </p>
+<p>默认全部替换，若只修改某个节点下的材质，可以使用<strong>杂类-&gt;替换材质</strong></p>
 <h2 id="-layer-tag">内建筑设置Layer/Tag</h2>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑LayerTag.png" alt="内建筑LayerTag">  </p>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+</ul>
+<p><strong>操作：</strong></p>
+<p>FloorTag默认为：Building_Floors
+Layer默认为：buildingLevels</p>
+<p>分别点击设置楼板Tag,设置内建筑Layer并关闭阴影</p>
+<p><strong>注意：</strong> <font color = "#ff0000">内建筑处理完成后，可以标注为Encode,例如TCENH-K03-AR-Encode</font></p>
 <h2 id="-">内建筑导入外建筑打包</h2>
-<h2 id="-">房间与楼板的映射关系</h2>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/内建筑导入Max层级.png" alt="内建筑导入Max层级">  </p>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+</ul>
+<p><strong>操作：</strong></p>
+<ul>
+<li><p>内建筑的的层级结构应该调整为正确的编码：</p>
+<p>  <img src="E:/7_GitHub/Markdown_Files/Image/正确层级.png" alt="正确层级">  </p>
+</li>
+<li><p>内建筑的Level层级应与外建筑一致</p>
+</li>
+</ul>
+<h2 id="-">墙与楼板的映射关系</h2>
+<p>用于建筑装修，需要知道楼板和墙面对应关系</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/墙和楼板的对应关系.png" alt="墙和楼板的对应关系">  </p>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+<li>选择数据库</li>
+</ul>
+<p><strong>操作：</strong></p>
+<h2 id="-">楼板新旧模型的映射关系</h2>
+<p>楼板因为编码的缘故造成以前的编码出现问题，可以使用射线映射的方式，获得新旧楼板的对应关系</p>
+<p><img src="E:/7_GitHub/Markdown_Files/Image/楼板新旧模型的映射关系.png" alt="楼板新旧模型的映射关系">  </p>
+<p><strong>选择：</strong></p>
+<ul>
+<li>模型根节点</li>
+<li>选择数据库</li>
+</ul>
+<p><strong>操作：</strong></p>
+<ul>
+<li><p>选择旧模型的根节点作为模型根节点</p>
+</li>
+<li><p>新旧模型上下位置错开一定距离，用于射线检测</p>
+</li>
+<li><p>创建楼板映射关系后，找到对应关系的楼板会变红</p>
+</li>
+<li><p>数据库有两个字段：oldFloorCode,newFloorCode</p>
+</li>
+<li><p>保存数据库即可</p>
+</li>
+</ul>
 <pre><code>
 </code></pre><h1 id="-">模型编辑器-管道</h1>
 <h2 id="-">管道替换</h2>
