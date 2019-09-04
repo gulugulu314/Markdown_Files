@@ -90,11 +90,11 @@
 内建筑模型是由Revit软件制作，导出.Fbx文件，可以是裸模，不需要材质信息；
 </code></pre><ul>
 <li><p><strong>外建筑提供的资源：</strong></p>
-<p>文件资源命名：<strong>==院区名_日期.FBX==</strong>,例如：<strong>==SZKNHP-20190601.FBX文件==</strong></p>
+<p>文件资源命名：<strong>院区名_日期.FBX</strong>,例如：<strong>SZKNHP-20190601.FBX文件</strong></p>
 <p>  <img src="E:/7_GitHub/Markdown_Files/Image/OutdoorMaxModel.png" alt="外建筑模型提交资源格式">              </p>
 </li>
 <li><p><strong>外建筑层级结构：</strong></p>
-<p>外建筑分为三个部分：<strong>==buildings,ground,others==</strong></p>
+<p>外建筑分为三个部分：<strong>buildings,ground,others</strong></p>
 <p>其中：buildings是划分好楼层的建筑，ground是地面，后期会加入Tree,others主要是一些装饰物体</p>
 <p>  <img src="E:/7_GitHub/Markdown_Files/Image/outdoorLevel.png" alt="外建筑层级">              </p>
 <p>  <strong>buildings的层级：</strong></p>
@@ -103,7 +103,7 @@
 <li>建筑节点（1）下为各楼层（2），每一层对应一个box（4），每一层下有自己的outdoor节点，outdoor节点下的mesh为该层的实体外建筑（3）；</li>
 <li>楼层节点（2）与box节点（4）为<strong>同一层级</strong>；</li>
 <li>楼层节点的中心点应该是该楼层的中心点；</li>
-<li><strong>楼层Box的编码</strong>：楼层编码_Box,例如：<strong>==BDHCMU-A02-F002_Box==</strong>;</li>
+<li><strong>楼层Box的编码</strong>：楼层编码_Box,例如：<strong>BDHCMU-A02-F002_Box</strong>;</li>
 <li><p>每个建筑下都应该有一个建筑Box(5)，建筑Box的编码为:院区-建筑_Box，例如：</p>
 <p><img src="E:/7_GitHub/Markdown_Files/Image/buildingLevel.png" alt="外建筑层级">    </p>
 </li>
@@ -111,7 +111,7 @@
 </li>
 <li><p><strong>内建筑提供的资源：</strong></p>
 <ul>
-<li><p><strong>Revit文件</strong>，Revit文件的提交格式：<strong>==院区-建筑-AR.rvt==</strong>,例如：<strong>==TSCENH-K03-AR.rvt==</strong></p>
+<li><p><strong>Revit文件</strong>，Revit文件的提交格式：<strong>院区-建筑-AR.rvt</strong>,例如：<strong>TSCENH-K03-AR.rvt</strong></p>
 <p>  <img src="E:/7_GitHub/Markdown_Files/Image/indoorModel.png" alt="外建筑层级">   </p>
 </li>
 <li><p><strong>Excel表</strong>，该Excel表统计每个房间的部门、用途等信息属性;</p>
@@ -169,7 +169,7 @@
 <li><p><strong>模型根节点选择buildings</strong></p>
 </li>
 <li><p><strong>3dMax划分后的层级结构</strong></p>
-<p>  外建筑划分后的层级结构为：<strong>==others,boxes，levels==</strong></p>
+<p>  外建筑划分后的层级结构为：<strong>others,boxes，levels</strong></p>
 <p>  boxes：除了包含每层的box后，还包含一个BuildingBox,BuildingBox下又复制了一份楼层的box；</p>
 <p><img src="E:/7_GitHub/Markdown_Files/Image/外建筑划分后.png" alt="外建筑划分后">   </p>
 </li>

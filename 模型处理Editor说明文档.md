@@ -252,15 +252,30 @@ st->op1->op2->op3->op4
 ## 内建筑设置Layer/Tag
 
 
+![内建筑LayerTag](E:/7_GitHub/Markdown_Files/Image/内建筑LayerTag.png)  
+
 
 
 ## 内建筑导入外建筑打包
 
 
 
+![内建筑导入Max层级](E:/7_GitHub/Markdown_Files/Image/内建筑导入Max层级.png)  
 
-## 房间与楼板的映射关系
 
+
+
+## 墙与楼板的映射关系
+
+
+
+![墙和楼板的对应关系](E:/7_GitHub/Markdown_Files/Image/墙和楼板的对应关系.png)  
+
+
+## 楼板新旧模型的映射关系
+
+
+![楼板新旧模型的映射关系](E:/7_GitHub/Markdown_Files/Image/楼板新旧模型的映射关系.png)  
 
 
 
